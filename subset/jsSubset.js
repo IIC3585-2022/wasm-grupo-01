@@ -1,41 +1,43 @@
-const checkEqual = (list, N, sm1, sm2, sm3, j) => {
-    if (j == N)
-    {
-      if (sm1 === sm2 && sm2 === sm3)
-        return 1;
-      else
-        return 0;
+const isSubsetExist = (S, n, a, b, c, arr) => {
+    if (a === 0 && b == 0 && c == 0){
+      return true;
     }
-   
-    else
-    {
-  
-      const l = checkEqual(list, N,
-                                sm1 + list[j],
-                                sm2, sm3, j + 1);
-  
-      const m = checkEqual(list, N, sm1,
-                                sm2 + list[j],
-                                sm3, j + 1);
-  
-      const r = checkEqual(list, N, sm1, sm2,
-                                sm3 + list[j], j + 1);
-   
-      return Math.max(Math.max(l, m), r);
+
+    if (n < 0) {
+      return false;
     }
-  }
+    
+    let A = false;
+    if (a - S[n] >= 0){
+        arr[n] = 1;
+        A = isSubsetExist(S, n - 1, a - S[n], b, c, arr);
+    }
+
+    let B = false;
+    if (!A && (b - S[n] >= 0))
+    {
+        arr[n] = 2;        // current element goes to the second subset
+        B = isSubsetExist(S, n - 1, a, b - S[n], c, arr);
+    }
+
+    let C = false;
+    if ((!A && !B) && (c - S[n] >= 0))
+    {
+        arr[n] = 3;        // current element goes to the third subset
+        C = isSubsetExist(S, n - 1, a, b, c - S[n], arr);
+    }
+
+    return A || B || C;
+}
   
-  const crunchingJS = (list, N) => {
-       const [sum1, sum2, sum3] = [0, 0, 0];
-       if (checkEqual(list, N, sum1,
-                      sum2, sum3, 0) === 1)
-       {
-           return 1;
-       }
-       else
-       {
-           return 0;
-       }
+const crunchingJS = (S, n) => {
+    const sum = S.reduce((a,b) => a + b);
+    const result = (n >=3) && !(sum%3) && isSubsetExist(S, n - 1, sum/3, sum/3, sum/3, new Array(n));
+    if (!result){
+      return 0;
+    }
+    return 1;
+
 }
 
 export default crunchingJS;

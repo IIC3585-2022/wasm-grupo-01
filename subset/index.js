@@ -11,7 +11,10 @@ const generateArrayC = (list, mod) => {
 
 const runJS = (list) => {
   let startDateJS = window.performance.now();
-  const resultJS = crunchingJS(list, list.length);
+  const arrOfNum = list.map(str => {
+    return Number(str);
+  })
+  const resultJS = crunchingJS(arrOfNum, arrOfNum.length);
   let endDateJS = window.performance.now();
   return {startDateJS, resultJS, endDateJS}
 }
