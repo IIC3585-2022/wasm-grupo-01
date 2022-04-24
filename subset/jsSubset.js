@@ -32,11 +32,27 @@ const isSubsetExist = (S, n, a, b, c, arr) => {
   
 const crunchingJS = (S, n) => {
     const sum = S.reduce((a,b) => a + b);
-    const result = (n >=3) && !(sum%3) && isSubsetExist(S, n - 1, sum/3, sum/3, sum/3, new Array(n));
+    const [subSet1, subSet2, subSet3] = [[],[],[]];
+    let arr = new Array(n);
+
+    const result = (n >=3) && !(sum%3) && isSubsetExist(S, n - 1, sum/3, sum/3, sum/3, arr);
     if (!result){
-      return 0;
+      return [subSet1, subSet2, subSet3];
     }
-    return 1;
+
+    for (let j = 0; j < n; j++){
+      if (arr[j] == 1){
+        subSet1.push(S[j])
+      }
+      else if (arr[j] == 2){
+        subSet2.push(S[j])
+      }
+      else if (arr[j] == 3){
+        subSet3.push(S[j])
+      }
+    }
+    //console.log(subSet1, subSet2, subSet3);
+    return [subSet1, subSet2, subSet3];
 
 }
 

@@ -30,13 +30,16 @@ const runner = (mod) => {
   const list = document.querySelector('#input').value.split(',');
   if(list.length) {
     document.querySelector('#loading').innerHTML = 'Cargando ...';
-    document.querySelector('#list').innerHTML = JSON.stringify(list);
+    //document.querySelector('#list').innerHTML = JSON.stringify(list);
     const arrayC = generateArrayC(list, mod);
     const {startDateC, endDateC} = runWasm(mod, arrayC, list);
     document.querySelector('#wasm').innerHTML = `${Math.round(((endDateC - startDateC) + Number.EPSILON) * 100) / 100} ms`
     const {startDateJS, resultJS, endDateJS} = runJS(list);
+    //const [subSet1, subSet2, subSet3] = resultJS;
+
+    document.querySelector('#list').innerHTML = resultJS[0].length ? JSON.stringify(resultJS) : '';
     document.querySelector('#js').innerHTML = `${Math.round(((endDateJS - startDateJS) + Number.EPSILON) * 100) / 100} ms`
-    document.querySelector('#loading').innerHTML = resultJS ? 'Tiene división' : 'No tiene división';
+    document.querySelector('#loading').innerHTML = resultJS[0].length ? 'Tiene división' : 'No tiene división';
   }
 
 }

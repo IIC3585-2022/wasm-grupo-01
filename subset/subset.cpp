@@ -47,6 +47,7 @@ bool isSubsetExist(int S[], int n, int a, int b, int c, int arr[])
 extern "C" {
   int checkEqualSum(int S[], int n)
     {
+        printf("C code partition:\n");
         int sum = 0;
         for (int i = 0; i < n; i++)
         {
@@ -64,12 +65,22 @@ extern "C" {
     
         if (!result)
         {
-            printf("3-Partition of set is not possible");
+            printf("3-Partition of set is not possible\n");
             return 0;
         }
         
-        printf("Partition is possible");
-
+        printf("Partition is possible\n");
+        for (int i = 1; i < 4; i++)
+        {
+            cout << "Partition " << i << " is ";
+            for (int j = 0; j < n; j++)
+            {
+                if (arr[j] == i) {
+                    cout << S[j] << " ";
+                }
+            }
+            cout << endl;
+        }
         return 1;
     }
 }
