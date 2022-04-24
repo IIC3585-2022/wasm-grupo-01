@@ -1,5 +1,5 @@
 const checkEqual = (list, N, sm1, sm2, sm3, j) => {
-    if (j == N)
+    if (j === N)
     {
       if (sm1 === sm2 && sm2 === sm3)
         return 1;
