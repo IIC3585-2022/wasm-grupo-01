@@ -31,6 +31,7 @@ const runner = (mod) => {
     document.querySelector('#list').innerHTML = JSON.stringify(list);
     const arrayC = generateArrayC(list, mod);
     const {startDateC, endDateC} = runWasm(mod, arrayC, list);
+    mod._free(arrayC);
     document.querySelector('#wasm').innerHTML = `${Math.round(((endDateC - startDateC) + Number.EPSILON) * 100) / 100} ms`
     const {startDateJS, resultJS, endDateJS} = runJS(list);
     document.querySelector('#js').innerHTML = `${Math.round(((endDateJS - startDateJS) + Number.EPSILON) * 100) / 100} ms`
